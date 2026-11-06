@@ -8,6 +8,35 @@ TFSV is designed to run inside an SSH session and provide a terminal-native file
 
 ## Install on Linux
 
+### Debian and Ubuntu (APT)
+
+Add the TFSV APT repository and its signing key, then install the `tfsv` package:
+
+```bash
+# Import the signing key used by the TFSV APT repository.
+curl -fsSL https://aayushrambo8.github.io/apt-repo/myrepo.pub \
+  | sudo gpg --dearmor -o /usr/share/keyrings/tfsv-archive-keyring.gpg
+
+# Register the repository.
+echo "deb [signed-by=/usr/share/keyrings/tfsv-archive-keyring.gpg] https://aayushrambo8.github.io/apt-repo/ stable main" \
+  | sudo tee /etc/apt/sources.list.d/tfsv.list
+
+sudo apt update
+sudo apt install tfsv
+```
+
+### Cargo
+
+TFSV is published on [crates.io](https://crates.io/crates/tfsv), so systems with the Rust toolchain can install it directly:
+
+```bash
+cargo install tfsv
+```
+
+Cargo installs the executable to `~/.cargo/bin`. Add that directory to your `PATH` if it is not already present. To update a Cargo installation, run `cargo install tfsv --force`.
+
+### From source
+
 Requirements: Git plus either `curl` or `wget`. The installer automatically installs the minimal stable Rust toolchain with Rustup when Cargo is unavailable.
 
 Clone, install, and launch TFSV:
