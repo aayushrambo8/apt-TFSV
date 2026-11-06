@@ -92,4 +92,3 @@ This keeps per-user or per-deployment settings isolated and avoids shared-state 
 ## SSH / multi-user usage
 
 TFSV is designed for authenticated Linux sessions over SSH. Launch it under the user account that should own the file system session, and keep configuration isolated per user with `TFSV_CONFIG_DIR` when needed.
-# apt-TFSV
