@@ -1,0 +1,46 @@
+name: Build release package
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  package-debian:
+    name: Package Debian binary
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the release commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Install the Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.85
+
+      - name: Build release binary
+        run: cargo build --release --locked --bin tfsv
+
+      - name: Install Debian packager
+        run: cargo install cargo-deb --locked
+
+      - name: Build Debian package
+        run: cargo deb --no-build --no-strip
+
+      - name: Locate package
+        id: package
+        shell: bash
+        run: |
+          deb_file=$(find target/debian -maxdepth 1 -type f -name '*.deb' -print -quit)
+          test -n "$deb_file"
+          echo "deb_file=$deb_file" >> "$GITHUB_OUTPUT"
+
+      - name: Upload package to the GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.package.outputs.deb_file }}
