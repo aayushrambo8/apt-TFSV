@@ -14,11 +14,11 @@ Add the TFSV APT repository and its signing key, then install the `tfsv` package
 
 ```bash
 # Import the signing key used by the TFSV APT repository.
-curl -fsSL https://aayushrambo8.github.io/apt-repo/myrepo.pub \
+curl -fsSL https://aayushrambo8.github.io/apt-TFSV/myrepo.pub \
   | sudo gpg --dearmor -o /usr/share/keyrings/tfsv-archive-keyring.gpg
 
 # Register the repository.
-echo "deb [signed-by=/usr/share/keyrings/tfsv-archive-keyring.gpg] https://aayushrambo8.github.io/apt-repo/ stable main" \
+echo "deb [signed-by=/usr/share/keyrings/tfsv-archive-keyring.gpg] https://aayushrambo8.github.io/apt-TFSV/ stable main" \
   | sudo tee /etc/apt/sources.list.d/tfsv.list
 
 sudo apt update
@@ -42,8 +42,8 @@ Requirements: Git plus either `curl` or `wget`. The installer automatically inst
 Clone, install, and launch TFSV:
 
 ```bash
-git clone https://github.com/aayushrambo8/Terminal-File-System-VIsualiser.git
-cd Terminal-File-System-VIsualiser
+git clone https://github.com/aayushrambo8/apt-TFSV.git
+cd apt-TFSV
 ./install.sh
 ```
 
@@ -70,7 +70,7 @@ To allow traversal outside home, run `sudo "$(command -v tfsv)"`. Exiting return
 To update, enter the cloned repository, pull changes, and reinstall:
 
 ```bash
-cd ~/Terminal-File-System-VIsualiser
+cd ~/apt-TFSV
 git pull
 ./install.sh
 ```
